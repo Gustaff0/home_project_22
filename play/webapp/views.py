@@ -4,14 +4,12 @@ num = 0
 list_history = {}
 
 def history(request):
-    global list_history
-    return render(request, 'history.html', list_history)
+    return render(request, "history.html", {'list_history':list_history})
 
 
 
 def action_play(request):
     global num
-    global list_history
     secret_numbers = [5,6,9,3]
     if request.method == "GET":
         return render(request, 'index.html')

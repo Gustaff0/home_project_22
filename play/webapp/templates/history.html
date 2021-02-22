@@ -10,8 +10,8 @@
 <body>
     <h1>History:</h1>
     <ul>
-        {% for i, value in list_history %}
-            <li>{{ i }}: {{ value }}</li>
+        {% for key, value in list_history.items %}
+            <li>{{ key }}: {{ value }}</li>
         {% endfor %}
     </ul>
 </body>
