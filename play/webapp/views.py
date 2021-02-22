@@ -25,6 +25,6 @@ def action_play(request):
                     context['win'] = "You are looser!"
             context['bulls'] = bull
             context['cows'] = cow
-            return render(request, 'response_result.html', context)
+            return render(request, 'response.html', context)
         except ValueError:
             return render(request, 'error.html')
