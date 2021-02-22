@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from webapp.views import action_play
+from webapp.views import action_play, history
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', action_play)
+    path('', action_play),
+    path('history/', history)
 ]

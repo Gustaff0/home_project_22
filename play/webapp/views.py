@@ -1,33 +1,44 @@
 from django.shortcuts import render
-
 # Create your views here.
+num = 0
+list_history = {}
+
+def history(request):
+    global list_history
+    return render(request, 'history.html', list_history)
+
+
 
 def action_play(request):
+    global num
+    global list_history
     secret_numbers = [5,6,9,3]
-    qty = 0
     if request.method == "GET":
         return render(request, 'index.html')
     elif request.method == "POST":
-        qty += 1
+        num += 1
         context = {
             'numbers': request.POST.get("numbers"),
             }
         try:
             numbers = list(map(int, context['numbers'].split(' ')))
-            cow = 0
-            bull = 0
-            for i in range(len(numbers)):
-                if numbers[i] == secret_numbers[i]:
-                    bull += 1
-                elif numbers[i] in secret_numbers:
-                    cow += 1
-                if bull == 4:
-                    context['win'] = "You Winner Man!"
-                else:
-                    context['win'] = "You are looser!"
-            context['bulls'] = bull
-            context['cows'] = cow
-            context['qty_move'] = qty
+            if len(numbers) == 4:
+                cow = 0
+                bull = 0
+                for i in range(len(numbers)):
+                    if numbers[i] == secret_numbers[i]:
+                        bull += 1
+                    elif numbers[i] in secret_numbers:
+                        cow += 1
+                    if bull == 4:
+                        context['win'] = "You Winner Man!"
+                    else:
+                        context['win'] = "You are looser!"
+                context['bulls'] = bull
+                context['cows'] = cow
+                list_history[num] = f"{numbers} ; bulls: {bull}, cow: {cow}"
+            else:
+                return render(request, 'error.html')
             return render(request, 'response.html', context)
         except ValueError:
             return render(request, 'error.html')
