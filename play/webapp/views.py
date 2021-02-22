@@ -4,9 +4,11 @@ from django.shortcuts import render
 
 def action_play(request):
     secret_numbers = [5,6,9,3]
+    qty = 0
     if request.method == "GET":
         return render(request, 'index.html')
     elif request.method == "POST":
+        qty += 1
         context = {
             'numbers': request.POST.get("numbers"),
             }
@@ -25,6 +27,7 @@ def action_play(request):
                     context['win'] = "You are looser!"
             context['bulls'] = bull
             context['cows'] = cow
+            context['qty_move'] = qty
             return render(request, 'response.html', context)
         except ValueError:
             return render(request, 'error.html')
